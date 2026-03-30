@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Trainer — Consultoria Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --red:#c0392b;--red2:#8e1a0e;
+      --black:#0a0a0a;--dark:#111;--card:#181818;
+      --white:#f5f5f5;--gray:#aaa;
+      --r:10px;--t:.28s ease;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 40px;
+      background:rgba(10,10,10,.93);
+      -webkit-backdrop-filter:blur(14px);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid #1e1e1e;
+      transition:padding var(--t);
+    }
+    nav.scrolled{padding:11px 40px}
+    .logo{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:3px;color:var(--white)}
+    .logo span{color:var(--red)}
+    .nav-links{display:flex;gap:30px;list-style:none}
+    .nav-links a{
+      text-decoration:none;color:var(--gray);
+      font-weight:600;font-size:.8rem;letter-spacing:1.8px;text-transform:uppercase;
+      transition:color var(--t);position:relative;
+    }
+    .nav-links a::after{
+      content:'';position:absolute;left:0;bottom:-4px;
+      width:0;height:2px;background:var(--red);transition:width var(--t);
+    }
+    .nav-links a:hover{color:var(--white)}
+    .nav-links a:hover::after{width:100%}
+    .hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hbg span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:transform var(--t),opacity var(--t)}
+    .hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hbg.open span:nth-child(2){opacity:0}
+    .hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    #hero{
+      min-height:100vh;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      text-align:center;padding:130px 20px 90px;
+      position:relative;overflow:hidden;
+    }
+    .hero-bg{
+      position:absolute;inset:0;pointer-events:none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%,rgba(192,57,43,.18) 0%,transparent 70%),
+        repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,.012) 61px),
+        repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,.012) 61px);
+    }
+    .hero-content{position:relative;z-index:1}
+    .hero-tag{
+      display:inline-block;background:var(--red);color:#fff;
+      font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+      padding:6px 18px;border-radius:2px;margin-bottom:28px;
+      animation:fadeDown .6s ease both;
+    }
+    #hero h1{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(3.5rem,12vw,8.5rem);line-height:.93;letter-spacing:2px;
+      animation:fadeDown .7s .1s ease both;
+    }
+    #hero h1 em{font-style:normal;color:var(--red)}
+    #hero p{
+      max-width:520px;margin:28px auto 0;color:var(--gray);
+      font-size:1.05rem;line-height:1.75;
+      animation:fadeDown .7s .2s ease both;
+    }
+    .cta-group{display:flex;gap:16px;margin-top:42px;flex-wrap:wrap;justify-content:center;animation:fadeDown .7s .3s ease both}
+    .btn-p,.btn-o{
+      text-decoration:none;font-family:'Bebas Neue',sans-serif;
+      font-size:1.15rem;letter-spacing:2px;padding:14px 38px;border-radius:4px;
+      transition:transform .2s,background var(--t),border-color var(--t);
+    }
+    .btn-p{background:var(--red);color:#fff}
+    .btn-p:hover{background:var(--red2);transform:translateY(-3px)}
+    .btn-o{border:2px solid #333;color:var(--white)}
+    .btn-o:hover{border-color:var(--red);transform:translateY(-3px)}
+    .scroll-hint{
+      position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:8px;
+      color:#444;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;
+      animation:fadeDown .7s .5s ease both;
+    }
+    .scroll-hint::after{
+      content:'';width:1px;height:40px;
+      background:linear-gradient(to bottom,#555,transparent);
+      animation:scrollPulse 1.6s ease-in-out infinite;
+    }
+
+    .container{max-width:1100px;margin:0 auto}
+    section{padding:100px 20px}
+    .sec-hd{text-align:center;margin-bottom:60px}
+    .sec-label{font-size:.72rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:1px}
+
+    #planos{background:var(--dark)}
+    .plano-card{
+      background:var(--card);border:1px solid #222;border-radius:var(--r);
+      padding:50px 46px;max-width:700px;margin:0 auto;
+      position:relative;overflow:hidden;
+      transition:transform .35s,box-shadow .35s;
+    }
+    .plano-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red)}
+    .plano-card:hover{transform:translateY(-6px);box-shadow:0 28px 70px rgba(192,57,43,.22)}
+    .plano-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+    .plano-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:2px}
+    .plano-price{text-align:right}
+    .price-from{font-size:.73rem;color:var(--gray);letter-spacing:1px;text-transform:uppercase}
+    .price-val{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--red);line-height:1}
+    .plano-desc{color:var(--gray);font-style:italic;line-height:1.75;margin-bottom:32px}
+    .plano-items{list-style:none;display:flex;flex-direction:column;gap:14px}
+    .plano-items li{display:flex;align-items:flex-start;gap:12px;color:#ccc;font-size:.96rem;line-height:1.55}
+    .ck{flex-shrink:0;margin-top:1px}
+    .plano-cta{
+      display:block;margin-top:40px;width:100%;
+      background:var(--red);color:#fff;text-align:center;
+      padding:17px;font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:3px;
+      border-radius:6px;text-decoration:none;transition:background var(--t),transform .2s;
+    }
+    .plano-cta:hover{background:var(--red2);transform:translateY(-2px)}
+
+    #resultados{background:var(--black)}
+    .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+    .result-card{background:var(--card);border:1px solid #1e1e1e;border-radius:var(--r);overflow:hidden;transition:transform .3s}
+    .result-card:hover{transform:scale(1.02)}
+    .result-sides{display:grid;grid-template-columns:1fr 1fr;height:290px}
+    .result-side{position:relative;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center}
+    .result-side img{width:100%;height:100%;object-fit:cover;filter:brightness(.88);transition:filter .3s}
+    .result-card:hover .result-side img{filter:brightness(1)}
+    .side-lbl{
+      position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+      font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:2px;
+      background:rgba(0,0,0,.65);padding:3px 14px;border-radius:3px;white-space:nowrap;
+    }
+    .side-lbl.b{color:#e74c3c}.side-lbl.a{color:#2ecc71}
+    .ph-side{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#2a2a2a;font-size:.75rem;letter-spacing:2px;text-transform:uppercase}
+
+    #pagamento{background:var(--dark)}
+    .pay-grid{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
+    .pay-card{
+      background:var(--red);border-radius:14px;width:200px;padding:42px 20px;
+      display:flex;flex-direction:column;align-items:center;gap:16px;
+      transition:transform .3s,box-shadow .3s;
+    }
+    .pay-card:hover{transform:translateY(-8px);box-shadow:0 22px 50px rgba(192,57,43,.4)}
+    .pay-icon{font-size:3rem}
+    .pay-label{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:3px}
+
+    #contato{background:var(--black)}
+    .contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:920px;margin:0 auto}
+    .contato-info h3{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:2px;margin-bottom:14px;line-height:1.1}
+    .contato-info>p{color:var(--gray);line-height:1.8;margin-bottom:32px}
+    .c-links{display:flex;flex-direction:column;gap:14px}
+    .c-link{
+      display:flex;align-items:center;gap:14px;text-decoration:none;
+      color:var(--white);background:var(--card);border:1px solid #222;border-radius:8px;
+      padding:14px 18px;font-weight:600;font-size:.9rem;
+      transition:border-color var(--t),transform .2s;
+    }
+    .c-link:hover{border-color:var(--red);transform:translateX(5px)}
+    .c-ico{font-size:1.3rem}
+    .fg{display:flex;flex-direction:column;gap:12px}
+    .fg input,.fg textarea{
+      background:var(--card);border:1px solid #222;color:var(--white);
+      padding:14px 16px;border-radius:6px;font-family:'Barlow',sans-serif;font-size:.95rem;
+      outline:none;transition:border-color var(--t);width:100%;
+    }
+    .fg input:focus,.fg textarea:focus{border-color:var(--red)}
+    .fg textarea{resize:vertical;min-height:130px}
+    .fg input::placeholder,.fg textarea::placeholder{color:#3a3a3a}
+    .fg input.err,.fg textarea.err{border-color:#e74c3c}
+    .fg button{
+      background:var(--red);color:#fff;border:none;padding:16px;border-radius:6px;
+      font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:3px;
+      cursor:pointer;transition:background var(--t),transform .2s;width:100%;
+    }
+    .fg button:hover{background:var(--red2);transform:translateY(-2px)}
+
+    footer{background:#060606;border-top:1px solid #181818;text-align:center;padding:36px 20px;color:#333;font-size:.78rem;letter-spacing:1px}
+    footer span{color:var(--red)}
+
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.on{opacity:1;transform:translateY(0)}
+
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes scrollPulse{0%,100%{opacity:.2;transform:scaleY(.4)}50%{opacity:1;transform:scaleY(1)}}
+
+    @media(max-width:768px){
+      nav{padding:16px 20px}
+      nav.scrolled{padding:12px 20px}
+      .hbg{display:flex}
+      .nav-links{
+        position:fixed;top:57px;left:0;right:0;
+        background:rgba(10,10,10,.97);flex-direction:column;align-items:center;gap:0;
+        max-height:0;overflow:hidden;transition:max-height .4s ease;
+      }
+      .nav-links.open{max-height:320px}
+      .nav-links li{width:100%}
+      .nav-links a{display:block;padding:16px 0;text-align:center;border-bottom:1px solid #1a1a1a}
+      section{padding:70px 16px}
+      .plano-card{padding:30px 22px}
+      .plano-top{flex-direction:column}
+      .plano-price{text-align:left}
+      .contato-grid{grid-template-columns:1fr;gap:40px}
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="logo">ELITE<span>FIT</span></div>
+  <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="nl">
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#resultados">Resultados</a></li>
+    <li><a href="#pagamento">Pagamento</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Consultoria Online</span>
+    <h1>SEU CORPO.<br><em>SUA</em> EVOLUÇÃO.</h1>
+    <p>Treino 100% personalizado, acompanhamento nutricional e suporte VIP pelo WhatsApp. Onde você estiver, no seu ritmo.</p>
+    <div class="cta-group">
+      <a href="#planos" class="btn-p">Ver Planos</a>
+      <a href="#contato" class="btn-o">Falar Agora</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>scroll</span></div>
+</section>
+
+<section id="planos">
+  <div class="container">
+    <div class="sec-hd reveal">
+      <p class="sec-label">O que oferecemos</p>
+      <h2 class="sec-title">MEUS PLANOS</h2>
+    </div>
+    <div class="plano-card reveal">
+      <div class="plano-top">
+        <div>
+          <p class="sec-label">Consultoria</p>
+          <div class="plano-title">ONLINE</div>
+        </div>
+        <div class="plano-price">
+          <div class="price-from">A partir de</div>
+          <div class="price-val">R$ 129,90</div>
+        </div>
+      </div>
+      <p class="plano-desc">Leve meu método para onde você estiver. Treine em casa ou na academia, no seu ritmo, com todo o meu planejamento e suporte para não perder o foco e alcançar seus objetivos.</p>
+      <ul class="plano-items">
+        <li><span class="ck">✅</span><span><strong>Treino 100% Personalizado:</strong> Montado do zero, respeitando seus objetivos, rotina e limites</span></li>
+        <li><span class="ck">✅</span><span><strong>Acompanhamento nutricional</strong> personalizado completo, com parceria especializada</span></li>
+        <li><span class="ck">✅</span><span><strong>Planos que cabem no seu bolso</strong></span></li>
+        <li><span class="ck">✅</span><span><strong>Flexibilidade Total:</strong> Casa ou academia — você escolhe</span></li>
+        <li><span class="ck">✅</span><span><strong>Treino no App com Vídeos:</strong> Veja a execução correta de cada exercício</span></li>
+        <li><span class="ck">✅</span><span><strong>Feedbacks Semanais:</strong> Ajustes no plano para garantir progresso contínuo</span></li>
+        <li><span class="ck">✅</span><span><strong>Suporte VIP via WhatsApp:</strong> Tire dúvidas diretamente comigo</span></li>
+      </ul>
+      <a href="#contato" class="plano-cta">QUERO COMEÇAR AGORA</a>
+    </div>
+  </div>
+</section>
+
+<section id="resultados">
+  <div class="container">
+    <div class="sec-hd reveal">
+      <p class="sec-label">Resultados Reais</p>
+      <h2 class="sec-title">ANTES &amp; DEPOIS</h2>
+    </div>
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <div class="result-sides">
+          <div class="result-side">
+            <div class="ph-side">ANTES</div>
+            <span class="side-lbl b">ANTES</span>
+          </div>
+          <div class="result-side">
+            <div class="ph-side">DEPOIS</div>
+            <span class="side-lbl a">DEPOIS</span>
+          </div>
+        </div>
+      </div>
+      <div class="result-card reveal">
+        <div class="result-sides">
+          <div class="result-side">
+            <div class="ph-side">ANTES</div>
+            <span class="side-lbl b">ANTES</span>
+          </div>
+          <div class="result-side">
+            <div class="ph-side">DEPOIS</div>
+            <span class="side-lbl a">DEPOIS</span>
+          </div>
+        </div>
+      </div>
+      <div class="result-card reveal">
+        <div class="result-sides">
+          <div class="result-side">
+            <div class="ph-side">ANTES</div>
+            <span class="side-lbl b">ANTES</span>
+          </div>
+          <div class="result-side">
+            <div class="ph-side">DEPOIS</div>
+            <span class="side-lbl a">DEPOIS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pagamento">
+  <div class="container">
+    <div class="sec-hd reveal">
+      <p class="sec-label">Formas de pagamento</p>
+      <h2 class="sec-title">COMO PAGAR</h2>
+    </div>
+    <div class="pay-grid">
+      <div class="pay-card reveal"><div class="pay-icon">💵</div><div class="pay-label">DINHEIRO</div></div>
+      <div class="pay-card reveal"><div class="pay-icon">💳</div><div class="pay-label">CARTÃO</div></div>
+      <div class="pay-card reveal"><div class="pay-icon">⚡</div><div class="pay-label">PIX</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="container">
+    <div class="sec-hd reveal">
+      <p class="sec-label">Fale comigo</p>
+      <h2 class="sec-title">CONTATO</h2>
+    </div>
+    <div class="contato-grid">
+      <div class="contato-info reveal">
+        <h3>PRONTO PARA TRANSFORMAR SEU CORPO?</h3>
+        <p>Entre em contato agora e dê o primeiro passo rumo à melhor versão de você mesmo. Respondo rapidinho!</p>
+        <div class="c-links">
+          <a href="https://wa.me/5511948119040" target="_blank" rel="noopener" class="c-link">
+            <span class="c-ico">💬</span> WhatsApp — Fale agora
+          </a>
+          <a href="https://instagram.com/tom.cordeiro" target="_blank" rel="noopener" class="c-link">
+            <span class="c-ico">📸</span> Instagram — @tom.cordeiro
+          </a>
+          <a href="mailto:contato@elitefit.com" class="c-link">
+            <span class="c-ico">✉️</span> contato@elitefit.com
+          </a>
+        </div>
+      </div>
+      
+      <div class="reveal">
+        <div class="fg">
+          <input  type="text"  id="f-nome"  placeholder="Seu nome"            autocomplete="name"/>
+          <input  type="tel"   id="f-tel"   placeholder="WhatsApp / Telefone"  autocomplete="tel"/>
+          <input  type="email" id="f-email" placeholder="E-mail (opcional)"    autocomplete="email"/>
+          <textarea            id="f-msg"   placeholder="Conte seu objetivo..."></textarea>
+          <button onclick="enviar()">ENVIAR MENSAGEM</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© <span id="ano"></span> <span>ELITEFIT</span> — Todos os direitos reservados</p>
+</footer>
+
+<script>
+  document.getElementById('ano').textContent = new Date().getFullYear();
+
+  const nav = document.getElementById('nav');
+  const hbg = document.getElementById('hbg');
+  const nl  = document.getElementById('nl');
+
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+
+  hbg.addEventListener('click', () => {
+    hbg.classList.toggle('open');
+    nl.classList.toggle('open');
+  });
+  nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    hbg.classList.remove('open');
+    nl.classList.remove('open');
+  }));
+
+
+  new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 90);
+      }
+    });
+  }, { threshold: 0.12 }).observe
+  document.querySelectorAll('.reveal').forEach(el =>
+    new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        entries[0].target.classList.add('on');
+      }
+    }, { threshold: 0.12 }).observe(el)
+  );
+
+
+  const WA_NUMBER = '5511948119040';
+
+  function enviar() {
+    const nome  = document.getElementById('f-nome');
+    const tel   = document.getElementById('f-tel');
+    const email = document.getElementById('f-email');
+    const msg   = document.getElementById('f-msg');
+
+    [nome, tel, email, msg].forEach(f => f.classList.remove('err'));
+
+    if (!nome.value.trim()) { nome.classList.add('err'); nome.focus(); return; }
+    if (!tel.value.trim())  { tel.classList.add('err');  tel.focus();  return; }
+
+    const texto = encodeURIComponent(
+      `Olá! Me chamo *${nome.value.trim()}*.\n` +
+      `📱 Telefone: ${tel.value.trim()}\n` +
+      `📧 E-mail: ${email.value.trim() || 'não informado'}\n\n` +
+      `💪 Objetivo: ${msg.value.trim() || 'não informado'}`
+    );
+
+    window.open(`https://wa.me/${WA_NUMBER}?text=${texto}`, '_blank');
+
+    [nome, tel, email, msg].forEach(f => f.value = '');
+  }
+</script>
+</body>
+</html>
