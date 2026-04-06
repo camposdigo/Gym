@@ -18,11 +18,12 @@
     html{scroll-behavior:smooth}
     body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
 
+    /* ── NAV ── */
     nav{
       position:fixed;top:0;left:0;right:0;z-index:200;
       display:flex;align-items:center;justify-content:space-between;
       padding:18px 40px;
-      background:rgba(10,10,10,.93);
+      background:rgba(10,10,10,.96);
       -webkit-backdrop-filter:blur(14px);
       backdrop-filter:blur(14px);
       border-bottom:1px solid #1e1e1e;
@@ -49,8 +50,11 @@
     .hbg.open span:nth-child(2){opacity:0}
     .hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
+    /* ── HERO ── */
     #hero{
-      min-height:100vh;display:flex;flex-direction:column;
+      min-height:100vh;
+      min-height:100svh;
+      display:flex;flex-direction:column;
       align-items:center;justify-content:center;
       text-align:center;padding:130px 20px 90px;
       position:relative;overflow:hidden;
@@ -102,12 +106,14 @@
       animation:scrollPulse 1.6s ease-in-out infinite;
     }
 
+    /* ── HELPERS ── */
     .container{max-width:1100px;margin:0 auto}
     section{padding:100px 20px}
     .sec-hd{text-align:center;margin-bottom:60px}
     .sec-label{font-size:.72rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:10px}
     .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:1px}
 
+    /* ── PLANOS ── */
     #planos{background:var(--dark)}
     .plano-card{
       background:var(--card);border:1px solid #222;border-radius:var(--r);
@@ -134,8 +140,9 @@
     }
     .plano-cta:hover{background:var(--red2);transform:translateY(-2px)}
 
+    /* ── RESULTADOS ── */
     #resultados{background:var(--black)}
-    .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+    .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:700px;margin:0 auto}
     .result-card{background:var(--card);border:1px solid #1e1e1e;border-radius:var(--r);overflow:hidden;transition:transform .3s}
     .result-card:hover{transform:scale(1.02)}
     .result-sides{display:grid;grid-template-columns:1fr 1fr;height:290px}
@@ -150,6 +157,7 @@
     .side-lbl.b{color:#e74c3c}.side-lbl.a{color:#2ecc71}
     .ph-side{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#2a2a2a;font-size:.75rem;letter-spacing:2px;text-transform:uppercase}
 
+    /* ── PAGAMENTO ── */
     #pagamento{background:var(--dark)}
     .pay-grid{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
     .pay-card{
@@ -161,6 +169,7 @@
     .pay-icon{font-size:3rem}
     .pay-label{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:3px}
 
+    /* ── CONTATO ── */
     #contato{background:var(--black)}
     .contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:920px;margin:0 auto}
     .contato-info h3{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:2px;margin-bottom:14px;line-height:1.1}
@@ -179,6 +188,7 @@
       background:var(--card);border:1px solid #222;color:var(--white);
       padding:14px 16px;border-radius:6px;font-family:'Barlow',sans-serif;font-size:.95rem;
       outline:none;transition:border-color var(--t);width:100%;
+      -webkit-appearance:none;
     }
     .fg input:focus,.fg textarea:focus{border-color:var(--red)}
     .fg textarea{resize:vertical;min-height:130px}
@@ -188,35 +198,75 @@
       background:var(--red);color:#fff;border:none;padding:16px;border-radius:6px;
       font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:3px;
       cursor:pointer;transition:background var(--t),transform .2s;width:100%;
+      -webkit-appearance:none;
     }
     .fg button:hover{background:var(--red2);transform:translateY(-2px)}
+    .fg button:active{transform:scale(.98)}
 
+    /* ── FOOTER ── */
     footer{background:#060606;border-top:1px solid #181818;text-align:center;padding:36px 20px;color:#333;font-size:.78rem;letter-spacing:1px}
     footer span{color:var(--red)}
 
+    /* ── REVEAL ── */
     .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
     .reveal.on{opacity:1;transform:translateY(0)}
 
+    /* ── KEYFRAMES ── */
     @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
     @keyframes scrollPulse{0%,100%{opacity:.2;transform:scaleY(.4)}50%{opacity:1;transform:scaleY(1)}}
 
+    /* ── TABLET ── */
+    @media(max-width:900px){
+      .contato-grid{grid-template-columns:1fr;gap:40px}
+    }
+
+    /* ── MOBILE ── */
     @media(max-width:768px){
       nav{padding:16px 20px}
       nav.scrolled{padding:12px 20px}
       .hbg{display:flex}
       .nav-links{
         position:fixed;top:57px;left:0;right:0;
-        background:rgba(10,10,10,.97);flex-direction:column;align-items:center;gap:0;
+        background:rgba(10,10,10,.99);
+        flex-direction:column;align-items:center;gap:0;
         max-height:0;overflow:hidden;transition:max-height .4s ease;
       }
-      .nav-links.open{max-height:320px}
+      .nav-links.open{max-height:360px}
       .nav-links li{width:100%}
-      .nav-links a{display:block;padding:16px 0;text-align:center;border-bottom:1px solid #1a1a1a}
-      section{padding:70px 16px}
-      .plano-card{padding:30px 22px}
-      .plano-top{flex-direction:column}
+      .nav-links a{display:block;padding:18px 0;text-align:center;border-bottom:1px solid #1a1a1a;font-size:.9rem}
+      section{padding:64px 16px}
+      #hero{padding:110px 20px 80px}
+      .cta-group{flex-direction:column;align-items:center}
+      .btn-p,.btn-o{width:100%;max-width:320px;text-align:center;padding:16px}
+      .plano-card{padding:28px 20px}
+      .plano-top{flex-direction:column;gap:12px}
       .plano-price{text-align:left}
-      .contato-grid{grid-template-columns:1fr;gap:40px}
+      .price-val{font-size:2.2rem}
+      .results-grid{grid-template-columns:1fr;max-width:100%}
+      .result-sides{height:240px}
+      .pay-card{width:calc(50% - 12px);min-width:130px;padding:32px 14px}
+      .pay-icon{font-size:2.2rem}
+      .pay-label{font-size:1.1rem}
+      /* desativa hover em touch */
+      .plano-card:hover{transform:none;box-shadow:none}
+      .btn-p:hover,.btn-o:hover{transform:none}
+      .plano-cta:hover{transform:none}
+      .pay-card:hover{transform:none;box-shadow:none}
+      .c-link:hover{transform:none}
+      .result-card:hover{transform:none}
+    }
+
+    /* ── CELULAR PEQUENO ── */
+    @media(max-width:380px){
+      .logo{font-size:1.4rem}
+      #hero h1{font-size:3rem}
+      .pay-grid{gap:12px}
+      .pay-card{width:calc(50% - 6px)}
+    }
+
+    /* ── iOS Safari — altura correta com barra de endereço ── */
+    @supports(-webkit-touch-callout:none){
+      #hero{min-height:-webkit-fill-available}
     }
   </style>
 </head>
@@ -288,38 +338,14 @@
     <div class="results-grid">
       <div class="result-card reveal">
         <div class="result-sides">
-          <div class="result-side">
-            <div class="ph-side">ANTES</div>
-            <span class="side-lbl b">ANTES</span>
-          </div>
-          <div class="result-side">
-            <div class="ph-side">DEPOIS</div>
-            <span class="side-lbl a">DEPOIS</span>
-          </div>
+          <div class="result-side"><img src="img/antes1.jpg" alt="Antes"/><span class="side-lbl b">ANTES</span></div>
+          <div class="result-side"><img src="img/depois1.jpg" alt="Depois"/><span class="side-lbl a">DEPOIS</span></div>
         </div>
       </div>
       <div class="result-card reveal">
         <div class="result-sides">
-          <div class="result-side">
-            <div class="ph-side">ANTES</div>
-            <span class="side-lbl b">ANTES</span>
-          </div>
-          <div class="result-side">
-            <div class="ph-side">DEPOIS</div>
-            <span class="side-lbl a">DEPOIS</span>
-          </div>
-        </div>
-      </div>
-      <div class="result-card reveal">
-        <div class="result-sides">
-          <div class="result-side">
-            <div class="ph-side">ANTES</div>
-            <span class="side-lbl b">ANTES</span>
-          </div>
-          <div class="result-side">
-            <div class="ph-side">DEPOIS</div>
-            <span class="side-lbl a">DEPOIS</span>
-          </div>
+          <div class="result-side"><img src="img/antes2.jpg" alt="Antes"/><span class="side-lbl b">ANTES</span></div>
+          <div class="result-side"><img src="img/depois2.jpg" alt="Depois"/><span class="side-lbl a">DEPOIS</span></div>
         </div>
       </div>
     </div>
@@ -357,17 +383,16 @@
           <a href="https://instagram.com/tom.cordeiro" target="_blank" rel="noopener" class="c-link">
             <span class="c-ico">📸</span> Instagram — @tom.cordeiro
           </a>
-          <a href="mailto:contato@elitefit.com" class="c-link">
-            <span class="c-ico">✉️</span> contato@elitefit.com
+          <a href="mailto:treinador.tomcordeiro@gmail.com" class="c-link">
+            <span class="c-ico">✉️</span> treinador.tomcordeiro@gmail.com
           </a>
         </div>
       </div>
-      
       <div class="reveal">
         <div class="fg">
-          <input  type="text"  id="f-nome"  placeholder="Seu nome"            autocomplete="name"/>
-          <input  type="tel"   id="f-tel"   placeholder="WhatsApp / Telefone"  autocomplete="tel"/>
-          <input  type="email" id="f-email" placeholder="E-mail (opcional)"    autocomplete="email"/>
+          <input  type="text"  id="f-nome"  placeholder="Seu nome"           autocomplete="name"/>
+          <input  type="tel"   id="f-tel"   placeholder="WhatsApp / Telefone" autocomplete="tel"/>
+          <input  type="email" id="f-email" placeholder="E-mail (opcional)"   autocomplete="email"/>
           <textarea            id="f-msg"   placeholder="Conte seu objetivo..."></textarea>
           <button onclick="enviar()">ENVIAR MENSAGEM</button>
         </div>
@@ -381,8 +406,10 @@
 </footer>
 
 <script>
+  /* ano */
   document.getElementById('ano').textContent = new Date().getFullYear();
 
+  /* nav scroll + hamburger */
   const nav = document.getElementById('nav');
   const hbg = document.getElementById('hbg');
   const nl  = document.getElementById('nl');
@@ -398,23 +425,14 @@
     nl.classList.remove('open');
   }));
 
-
-  new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('on'), i * 90);
-      }
-    });
-  }, { threshold: 0.12 }).observe
+  /* scroll reveal */
   document.querySelectorAll('.reveal').forEach(el =>
     new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        entries[0].target.classList.add('on');
-      }
+      if (entries[0].isIntersecting) entries[0].target.classList.add('on');
     }, { threshold: 0.12 }).observe(el)
   );
 
-
+  /* formulário → WhatsApp */
   const WA_NUMBER = '5511948119040';
 
   function enviar() {
@@ -436,7 +454,6 @@
     );
 
     window.open(`https://wa.me/${WA_NUMBER}?text=${texto}`, '_blank');
-
     [nome, tel, email, msg].forEach(f => f.value = '');
   }
 </script>
