@@ -50,7 +50,6 @@
     .hbg.open span:nth-child(2){opacity:0}
     .hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-    /* ── HERO ── */
     #hero{
       min-height:100vh;
       min-height:100svh;
@@ -106,14 +105,12 @@
       animation:scrollPulse 1.6s ease-in-out infinite;
     }
 
-    /* ── HELPERS ── */
     .container{max-width:1100px;margin:0 auto}
     section{padding:100px 20px}
     .sec-hd{text-align:center;margin-bottom:60px}
     .sec-label{font-size:.72rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:10px}
     .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:1px}
 
-    /* ── PLANOS ── */
     #planos{background:var(--dark)}
     .plano-card{
       background:var(--card);border:1px solid #222;border-radius:var(--r);
@@ -140,7 +137,6 @@
     }
     .plano-cta:hover{background:var(--red2);transform:translateY(-2px)}
 
-    /* ── RESULTADOS ── */
     #resultados{background:var(--black)}
     .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:700px;margin:0 auto}
     .result-card{background:var(--card);border:1px solid #1e1e1e;border-radius:var(--r);overflow:hidden;transition:transform .3s}
@@ -157,7 +153,6 @@
     .side-lbl.b{color:#e74c3c}.side-lbl.a{color:#2ecc71}
     .ph-side{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#2a2a2a;font-size:.75rem;letter-spacing:2px;text-transform:uppercase}
 
-    /* ── PAGAMENTO ── */
     #pagamento{background:var(--dark)}
     .pay-grid{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
     .pay-card{
@@ -169,7 +164,6 @@
     .pay-icon{font-size:3rem}
     .pay-label{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:3px}
 
-    /* ── CONTATO ── */
     #contato{background:var(--black)}
     .contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:920px;margin:0 auto}
     .contato-info h3{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:2px;margin-bottom:14px;line-height:1.1}
@@ -203,24 +197,19 @@
     .fg button:hover{background:var(--red2);transform:translateY(-2px)}
     .fg button:active{transform:scale(.98)}
 
-    /* ── FOOTER ── */
     footer{background:#060606;border-top:1px solid #181818;text-align:center;padding:36px 20px;color:#333;font-size:.78rem;letter-spacing:1px}
     footer span{color:var(--red)}
 
-    /* ── REVEAL ── */
     .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
     .reveal.on{opacity:1;transform:translateY(0)}
 
-    /* ── KEYFRAMES ── */
     @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
     @keyframes scrollPulse{0%,100%{opacity:.2;transform:scaleY(.4)}50%{opacity:1;transform:scaleY(1)}}
 
-    /* ── TABLET ── */
     @media(max-width:900px){
       .contato-grid{grid-template-columns:1fr;gap:40px}
     }
 
-    /* ── MOBILE ── */
     @media(max-width:768px){
       nav{padding:16px 20px}
       nav.scrolled{padding:12px 20px}
@@ -247,7 +236,7 @@
       .pay-card{width:calc(50% - 12px);min-width:130px;padding:32px 14px}
       .pay-icon{font-size:2.2rem}
       .pay-label{font-size:1.1rem}
-      /* desativa hover em touch */
+
       .plano-card:hover{transform:none;box-shadow:none}
       .btn-p:hover,.btn-o:hover{transform:none}
       .plano-cta:hover{transform:none}
@@ -256,7 +245,7 @@
       .result-card:hover{transform:none}
     }
 
-    /* ── CELULAR PEQUENO ── */
+
     @media(max-width:380px){
       .logo{font-size:1.4rem}
       #hero h1{font-size:3rem}
@@ -264,7 +253,7 @@
       .pay-card{width:calc(50% - 6px)}
     }
 
-    /* ── iOS Safari — altura correta com barra de endereço ── */
+
     @supports(-webkit-touch-callout:none){
       #hero{min-height:-webkit-fill-available}
     }
@@ -406,10 +395,9 @@
 </footer>
 
 <script>
-  /* ano */
+
   document.getElementById('ano').textContent = new Date().getFullYear();
 
-  /* nav scroll + hamburger */
   const nav = document.getElementById('nav');
   const hbg = document.getElementById('hbg');
   const nl  = document.getElementById('nl');
@@ -425,14 +413,12 @@
     nl.classList.remove('open');
   }));
 
-  /* scroll reveal */
   document.querySelectorAll('.reveal').forEach(el =>
     new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) entries[0].target.classList.add('on');
     }, { threshold: 0.12 }).observe(el)
   );
 
-  /* formulário → WhatsApp */
   const WA_NUMBER = '5511948119040';
 
   function enviar() {
